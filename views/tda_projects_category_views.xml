@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="tda_projects_category_form" model="ir.ui.view">
+        <field name="name">tda_projects_category_form</field>
+        <field name="model">tda.projects.category</field>
+        <field name="arch" type="xml">
+            <form string="Projects category">
+                <sheet>
+                    <group name="projects_category">
+                        <field name="name" string="Name"/>
+                    </group>
+
+                    <notebook>
+                        <page name='projects' string="Projects">
+                            <field name="project_ids" string="Projects" readonly="1">
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="tda_projects_category_tree" model="ir.ui.view">
+        <field name="name">tda_projects_category_tree</field>
+        <field name="model">tda.projects.category</field>
+        <field name="arch" type="xml">
+            <tree string="Projects category">
+                <field name="name" string="Name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="tda_projects_category_action" model="ir.actions.act_window">
+        <field name="name">Projects category</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">tda.projects.category</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

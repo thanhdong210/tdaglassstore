@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_tda_product_product,tda.product.product,model_tda_product_product,base.group_user,1,1,1,1
+access_tda_product_category,tda.product.category,model_tda_product_category,base.group_user,1,1,1,1
+access_tda_info,tda.info,model_tda_info,base.group_user,1,1,1,1
+access_tda_working_time,tda.working.time,model_tda_working_time,base.group_user,1,1,1,1
+access_tda_address,tda.address,model_tda_address,base.group_user,1,1,1,1
+access_tda_projects_category,tda.projects.category,model_tda_projects_category,base.group_user,1,1,1,1
+access_tda_projects,tda.projects,model_tda_projects,base.group_user,1,1,1,1
+access_tda_advisory_request,tda.advisory.request,model_tda_advisory_request,base.group_user,1,1,1,1
+access_tda_feng_shui,tda.feng.shui,model_tda_feng_shui,base.group_user,1,1,1,1
+access_tda_product_image,tda.product.image,model_tda_product_image,base.group_user,1,1,1,1

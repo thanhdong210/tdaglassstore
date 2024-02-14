@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="tda_feng_shui_form" model="ir.ui.view">
+        <field name="name">tda_feng_shui_form</field>
+        <field name="model">tda.feng.shui</field>
+        <field name="arch" type="xml">
+            <form string="Feng Shui">
+                <sheet>
+                    <group name="info">
+                        <field name="name" string="Name"/>
+                    </group>
+
+                    <notebook>
+                        <page name="feng_shui_detail_html" string="Detail fengshui">
+                            <group name="feng_shui_detail_html">
+                                <field name="feng_shui_detail_html" string="Feng shui HTML"/>
+                            </group>
+                        </page>
+
+                        <page name="fengshui_image" string="Fengshui Image">
+                            <group name="fengshui_image">
+                                <field name="image" widget="image" string="Fengshui Image"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="tda_feng_shui_tree" model="ir.ui.view">
+        <field name="name">tda_feng_shui_tree</field>
+        <field name="model">tda.feng.shui</field>
+        <field name="arch" type="xml">
+            <tree string="Feng Shui">
+                <field name="name" string="Name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="tda_feng_shui_action" model="ir.actions.act_window">
+        <field name="name">feng Shui Action</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">tda.feng.shui</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

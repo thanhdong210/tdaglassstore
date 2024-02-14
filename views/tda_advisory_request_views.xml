@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="tda_advisory_request_form" model="ir.ui.view">
+        <field name="name">tda_advisory_request_form</field>
+        <field name="model">tda.advisory.request</field>
+        <field name="arch" type="xml">
+            <form string="Advisory Request">
+                <header>
+                    <field name="state" widget="statusbar" class="o_field_statusbar" options="{'clickable': '1'}"/>
+                </header>
+                <sheet>
+                    <group name="info">
+                        <field name="name" string="Name" readonly="1"/>
+                        <field name="email" string="Email" readonly="1"/>
+                        <field name="phone" string="Phone" readonly="1"/>
+                        <field name="create_date" string="Create date"/>
+                        <field name="message" string="Message" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="tda_advisory_request_tree" model="ir.ui.view">
+        <field name="name">tda_advisory_request_tree</field>
+        <field name="model">tda.advisory.request</field>
+        <field name="arch" type="xml">
+            <tree string="Customer Advisory Request" default_order="create_date">
+                <field name="name" string="Name"/>
+                <field name="create_date" string="Create date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="tda_advisory_request_search" model="ir.ui.view">
+        <field name="name">tda_advisory_request_search</field>
+        <field name="model">tda.advisory.request</field>
+        <field name="arch" type="xml">
+            <search string="Advisory Request">
+                <group expand="0" string="Group By">
+                    <filter name="state" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="tda_advisory_request_action" model="ir.actions.act_window">
+        <field name="name">Customer Advisory Request</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">tda.advisory.request</field>
+        <field name="context">{'search_default_state': 1}</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>
