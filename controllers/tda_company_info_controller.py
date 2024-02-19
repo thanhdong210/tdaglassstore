@@ -23,6 +23,9 @@ class TDACompanyInfo(http.Controller):
                     "name": address.name,
                     "address_detail": address.address
                 })
+
+        if company_info:
+            company_info = company_info[0]
         
         return Response(json.dumps(company_info, default=str, ensure_ascii=False))
     
@@ -30,7 +33,7 @@ class TDACompanyInfo(http.Controller):
     def tda_projects(self, id=0, **kw):
         projects = request.env['tda.projects'].sudo().search_read(
             domain=[],
-            fields=['name', 'name_url', 'category_name', 'create_date'],
+            fields=['name', 'name_url', 'category_name', 'create_date', 'image_link', 'author'],
         )
         return Response(json.dumps(projects, default=str, ensure_ascii=False))
     
@@ -40,7 +43,7 @@ class TDACompanyInfo(http.Controller):
         if name_url:
             projects = request.env['tda.projects'].sudo().search_read(
                 domain=[('name_url', '=', name_url)],
-                fields=['name', 'category_name', 'project_detail_html', 'name_url', 'create_date'],
+                fields=['name', 'category_name', 'project_detail_html', 'name_url', 'create_date', 'author'],
             )
         if projects:
             projects = projects[0]

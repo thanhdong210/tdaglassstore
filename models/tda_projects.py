@@ -41,6 +41,7 @@ class TDAProjects(models.Model):
     project_detail_html = fields.Html(string="Product detail html")
     image = fields.Image("Image", max_width=1920, max_height=1920)
     image_link = fields.Char("Image link", compute="_compute_image_link", store=True)
+    author = fields.Char("Author", related="create_uid.name")
 
     def _compute_image_link(self):
         base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')

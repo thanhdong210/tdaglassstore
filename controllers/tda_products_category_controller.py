@@ -4,6 +4,8 @@ from odoo.http import Response
 import json
 from werkzeug.exceptions import Forbidden, NotFound
 
+from . import resource_mixin
+
 class TDAProductCategoryControllers(http.Controller):
 
     @http.route('/product_category', auth='public', type='http', website=True, csrf=True, cors="*")
@@ -32,29 +34,10 @@ class TDAProductCategoryControllers(http.Controller):
                 fields=['id', 'name', 'name_url', 'image_links', 'product_info'],
                 limit=1
             )
-            product_info_sorted = category[0].get("product_info")
-            total_products = len(product_info_sorted)
-            if kw.get("sort"):
-                if kw.get("sort") == "newest":
-                    product_info_sorted = sorted(category[0].get("product_info"), key=lambda d: d['id'], reverse=True)
-                elif kw.get("sort") == "alphabet":
-                    product_info_sorted = sorted(category[0].get("product_info"), key=lambda d: d['name'])
+            total_products = len(category[0].get("product_info"))
 
-            if kw.get("page") and kw.get("limit"):
-                page = 0
-                limit = 0
-                try:
-                    page = int(kw.get("page"))
-                    limit = int(kw.get("limit"))
-                except:
-                    return NotFound()
-                if page < 0 or limit <= 0:
-                    return NotFound()
-                
-                # Retrieve data for a specific page
-                start_index = (page - 1) * limit
-                end_index = page * limit
-                product_info_sorted = product_info_sorted[start_index:end_index]
+            product_info_sorted = resource_mixin.pagination_the_products(category[0].get("product_info"), sort=kw.get("sort", False), page=kw.get("page", False), limit=kw.get("limit", False))
+
             if product_info_sorted:
                 category[0]["product_info"] = product_info_sorted
             if category:

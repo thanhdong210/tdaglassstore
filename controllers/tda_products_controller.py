@@ -3,16 +3,29 @@ from odoo.http import request
 import requests
 from odoo.http import Response
 import json
+from . import resource_mixin
 
 class TDAProductControllers(http.Controller):
 
     @http.route('/products', auth='public', type='http', website=True, csrf=True, cors="*")
-    def products_view(self, sort_price=False, pagination=0, **kw):
-        products = request.env['tda.product.product'].sudo().search_read(
-            domain=[],
-            fields=['id', 'name', 'category_name', 'discount_price', 'price', 'is_price_contact', 'name_url'],
-        )
-        return Response(json.dumps(products, default=str, ensure_ascii=False))
+    def products_view(self, **kw):
+        if kw.get("keyword", False):
+            products = request.env['tda.product.product'].sudo().search_read(
+                domain=[
+                    '|',
+                        ('name', 'ilike', kw.get("keyword")),
+                        ('name_url', 'ilike', kw.get("keyword"))
+                ],
+                fields=['id', 'name', 'category_name', 'discount_price', 'price', 'is_price_contact', 'name_url'],
+            )
+        else:
+            products = request.env['tda.product.product'].sudo().search_read(
+                domain=[],
+                fields=['id', 'name', 'category_name', 'discount_price', 'price', 'is_price_contact', 'name_url'],
+            )
+
+        product_info_sorted = resource_mixin.pagination_the_products(products, sort=kw.get("sort", False), page=kw.get("page", False), limit=kw.get("limit", False), search=kw.get("keyword", False))
+        return Response(json.dumps(product_info_sorted, default=str, ensure_ascii=False))
 
     @http.route('/products_by_category/<string:name_url>', auth='public', type='http', website=True, csrf=True, cors="*")
     def products_category_views(self, id=0, name_url="", **kw):
