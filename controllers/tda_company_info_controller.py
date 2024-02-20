@@ -33,7 +33,7 @@ class TDACompanyInfo(http.Controller):
     def tda_projects(self, id=0, **kw):
         projects = request.env['tda.projects'].sudo().search_read(
             domain=[],
-            fields=['name', 'name_url', 'category_name', 'create_date', 'image_link', 'author'],
+            fields=['name', 'name_url', 'category_name', 'create_date', 'image_link', 'author', 'type'],
         )
         return Response(json.dumps(projects, default=str, ensure_ascii=False))
     
@@ -65,7 +65,7 @@ class TDACompanyInfo(http.Controller):
     def tda_feng_shui(self, id=0, **kw):
         feng_shui_info = request.env['tda.feng.shui'].sudo().search_read(
             domain=[],
-            fields=['name', 'image_link', 'create_date', 'name_url'],
+            fields=['name', 'image_link', 'create_date', 'name_url', 'author', 'type'],
         )
         return Response(json.dumps(feng_shui_info, default=str, ensure_ascii=False))
     
@@ -75,7 +75,7 @@ class TDACompanyInfo(http.Controller):
         if name_url:
             feng_shui_info = request.env['tda.feng.shui'].sudo().search_read(
                 domain=[('name_url', '=', name_url)],
-                fields=['name', 'feng_shui_detail_html', 'image_link', 'create_date', 'name_url'],
+                fields=['name', 'feng_shui_detail_html', 'image_link', 'create_date', 'name_url', 'author'],
             )
         if feng_shui_info:
             feng_shui_info = feng_shui_info[0]

@@ -11,6 +11,8 @@ class TDAFengshui(models.Model):
     feng_shui_detail_html = fields.Html(string="Feng shui HTML")
     image = fields.Image("Image", max_width=1920, max_height=1920)
     image_link = fields.Char("Image link", compute="_compute_image_link")
+    author = fields.Char("Author", related="create_uid.name")
+    type = fields.Char(default='fengshui')
 
     @api.depends("name")
     def _compute_name_url(self):
