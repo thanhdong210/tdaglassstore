@@ -29,7 +29,7 @@ class TDACompanyInfo(http.Controller):
         return Response(json.dumps(company_info, default=str, ensure_ascii=False))
     
     @http.route('/company_html', auth='public', type='http', website=True, csrf=True, cors="*")
-    def company_info(self, id=0, **kw):
+    def company_info_html(self, id=0, **kw):
         company_info = request.env['tda.info'].sudo().search_read(
             domain=[],
             fields=['id', 'company_detail_html'],
