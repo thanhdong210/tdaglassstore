@@ -16,20 +16,17 @@ class TDAProductControllers(http.Controller):
                         ('name', 'ilike', kw.get("keyword")),
                         ('name_url', 'ilike', kw.get("keyword"))
                 ],
-                fields=['id', 'name', 'category_name', 'discount_price', 'price', 'is_price_contact', 'image_link', 'name_url'],
+                fields=['id', 'name', 'category_name', 'discount_price', 'price', 'is_price_contact', 'name_url', 'image_links'],
             )
         else:
             products = request.env['tda.product.product'].sudo().search_read(
                 domain=[],
-                fields=['id', 'name', 'category_name', 'discount_price', 'price', 'is_price_contact', 'name_url'],
+                fields=['id', 'name', 'category_name', 'discount_price', 'price', 'is_price_contact', 'name_url', 'image_links'],
             )
 
         total_products = len(products)
 
         product_info_sorted = resource_mixin.pagination_the_products(products, sort=kw.get("sort", False), page=kw.get("page", False), limit=kw.get("limit", False), search=kw.get("keyword", False))
-        product_info_sorted.append({
-            'total_products': total_products
-        })
 
         dict_data = {
             'list_product': product_info_sorted,
