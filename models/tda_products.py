@@ -19,6 +19,7 @@ class TDAProducts(models.Model):
     name_url = fields.Char(string="Name url", compute="_compute_name_url", store=True)
     product_template_image_ids = fields.One2many('tda.product.image', 'tda_product_id', string="Extra Product Media", copy=True)
     image_links = fields.Json(string="Image Link", compute="_compute_image_link", store=True)
+    image_link = fields.Json(string="Image Link", compute="_compute_image_link", store=True)
     is_featured = fields.Boolean(string="Featured")
     image_featured_file_ids = fields.One2many('tda.product.image', 'tda_feature_product_id', string="Featured product image")
     featured_link = fields.Json(string="Image Featured Link", compute="_compute_image_featured_link", store=True)
@@ -33,6 +34,8 @@ class TDAProducts(models.Model):
     def _compute_image_link(self):
         for rec in self:
             rec.get_image_url("product_template_image_ids", "image_links")
+            if rec.image_links:
+                rec.image_link = rec.image_links[0]
 
 
     @api.depends("image_featured_file_ids", "featured_link")

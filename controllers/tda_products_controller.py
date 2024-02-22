@@ -16,12 +16,12 @@ class TDAProductControllers(http.Controller):
                         ('name', 'ilike', kw.get("keyword")),
                         ('name_url', 'ilike', kw.get("keyword"))
                 ],
-                fields=['id', 'name', 'category_name', 'discount_price', 'price', 'is_price_contact', 'name_url', 'image_links'],
+                fields=['id', 'name', 'category_name', 'discount_price', 'price', 'is_price_contact', 'name_url', 'image_link'],
             )
         else:
             products = request.env['tda.product.product'].sudo().search_read(
                 domain=[],
-                fields=['id', 'name', 'category_name', 'discount_price', 'price', 'is_price_contact', 'name_url', 'image_links'],
+                fields=['id', 'name', 'category_name', 'discount_price', 'price', 'is_price_contact', 'name_url', 'image_link'],
             )
 
         total_products = len(products)
