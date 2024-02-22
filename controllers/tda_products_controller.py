@@ -27,6 +27,9 @@ class TDAProductControllers(http.Controller):
         total_products = len(products)
 
         product_info_sorted = resource_mixin.pagination_the_products(products, sort=kw.get("sort", False), page=kw.get("page", False), limit=kw.get("limit", False), search=kw.get("keyword", False))
+        for product_info_sorted_item in product_info_sorted:
+            if not product_info_sorted_item.get("image_link"):
+                product_info_sorted_item["image_link"] = ""
 
         dict_data = {
             'list_product': product_info_sorted,
@@ -54,6 +57,8 @@ class TDAProductControllers(http.Controller):
             )
         if products:
             products = products[0]
+            if not products.get("image_links"):
+                products["image_links"] = []
         return Response(json.dumps(products, default=str, ensure_ascii=False))
     
     @http.route('/products_featured', auth='public', type='http', website=True, csrf=True, cors="*")

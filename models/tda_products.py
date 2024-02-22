@@ -19,7 +19,7 @@ class TDAProducts(models.Model):
     name_url = fields.Char(string="Name url", compute="_compute_name_url", store=True)
     product_template_image_ids = fields.One2many('tda.product.image', 'tda_product_id', string="Extra Product Media", copy=True)
     image_links = fields.Json(string="Image Link", compute="_compute_image_link", store=True)
-    image_link = fields.Json(string="Image Link", compute="_compute_image_link", store=True)
+    image_link = fields.Json(string="Image Link", compute="_compute_image_link_one", store=True)
     is_featured = fields.Boolean(string="Featured")
     image_featured_file_ids = fields.One2many('tda.product.image', 'tda_feature_product_id', string="Featured product image")
     featured_link = fields.Json(string="Image Featured Link", compute="_compute_image_featured_link", store=True)
@@ -29,19 +29,31 @@ class TDAProducts(models.Model):
         for rec in self:
             if rec.name:
                 rec.name_url = "-".join(resource_mixin.convert(rec.name).split())
-    
+
+    @api.depends("image_links")
+    def _compute_image_link_one(self):
+        for rec in self:
+            if rec.image_links:
+                rec.image_link = rec.image_links[0].get("image_link", "")
+            else:
+                rec.image_link = ""
+
     @api.depends("product_template_image_ids")
     def _compute_image_link(self):
         for rec in self:
-            rec.get_image_url("product_template_image_ids", "image_links")
-            if rec.image_links:
-                rec.image_link = rec.image_links[0]
+            if rec.product_template_image_ids:
+                rec.get_image_url("product_template_image_ids", "image_links")
+            else:
+                rec.image_links = ""
 
 
     @api.depends("image_featured_file_ids", "featured_link")
     def _compute_image_featured_link(self):
         for rec in self:
-            rec.get_image_url("image_featured_file_ids", "featured_link")
+            if rec.image_featured_file_ids:
+                rec.get_image_url("image_featured_file_ids", "featured_link")
+            else:
+                rec.featured_link = ""
 
     def get_image_url(self, fields, fields_to_compute):
         base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
