@@ -12,3 +12,4 @@ class TDAInfo(models.Model):
     email = fields.Char(string="Email")
     address_ids = fields.Many2many('tda.address', string="Address")
     working_time_ids = fields.One2many('tda.working.time', 'info_id', string="Working time")
+    company_detail_html = fields.Html(string="Product html")

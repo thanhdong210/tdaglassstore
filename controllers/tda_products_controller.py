@@ -30,7 +30,12 @@ class TDAProductControllers(http.Controller):
         product_info_sorted.append({
             'total_products': total_products
         })
-        return Response(json.dumps(product_info_sorted, default=str, ensure_ascii=False))
+
+        dict_data = {
+            'list_product': product_info_sorted,
+            'total_products': total_products
+        }
+        return Response(json.dumps(dict_data, default=str, ensure_ascii=False))
 
     @http.route('/products_by_category/<string:name_url>', auth='public', type='http', website=True, csrf=True, cors="*")
     def products_category_views(self, id=0, name_url="", **kw):

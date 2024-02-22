@@ -10,7 +10,6 @@ class TDACompanyInfo(http.Controller):
         company_info = request.env['tda.info'].sudo().search_read(
             domain=[],
             fields=['id', 'name', 'tax_code', 'phone1', 'phone2', 'email'],
-            limit=3
         )
 
         for item in company_info:
@@ -23,6 +22,18 @@ class TDACompanyInfo(http.Controller):
                     "name": address.name,
                     "address_detail": address.address
                 })
+
+        if company_info:
+            company_info = company_info[0]
+        
+        return Response(json.dumps(company_info, default=str, ensure_ascii=False))
+    
+    @http.route('/company_html', auth='public', type='http', website=True, csrf=True, cors="*")
+    def company_info(self, id=0, **kw):
+        company_info = request.env['tda.info'].sudo().search_read(
+            domain=[],
+            fields=['id', 'company_detail_html'],
+        )
 
         if company_info:
             company_info = company_info[0]

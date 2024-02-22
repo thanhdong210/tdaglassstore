@@ -19,15 +19,24 @@
                         </group>
                     </group>
 
-                    <group name="working_time" string="Working time">
-                        <field name="working_time_ids" string="Working time">
-                            <tree>
-                                <field name="weekday" string="Weekday"/>
-                                <field name="time_from" string="Time from" widget="timepicker"/>
-                                <field name="time_to" string="Time to" widget="timepicker"/>
-                            </tree>
-                        </field>
-                    </group>
+                    <notebook>
+                        <page name='working_times' string="Working time">
+                            <field name="working_time_ids">
+                                <tree>
+                                    <field name="weekday" string="Weekday"/>
+                                    <field name="time_from" string="Time from" widget="timepicker"/>
+                                    <field name="time_to" string="Time to" widget="timepicker"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <page name='company_html' string="Company html">
+                            <field name="company_detail_html">
+                            </field>
+                        </page>
+                    </notebook>
+
+                    
                 </sheet>
             </form>
         </field>
