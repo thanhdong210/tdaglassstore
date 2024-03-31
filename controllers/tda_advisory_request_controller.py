@@ -35,4 +35,4 @@ class TDAAdvisoryRequestControllers(http.Controller):
             request.env['tda.advisory.request'].sudo().create(create_data)
             return Response('success', status=200)
         except:
-            raise BadRequest('Something went wrong, please try again later!')
+            return Response('error while posting advisory', status=500)

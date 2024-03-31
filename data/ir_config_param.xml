@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- TODO remove as it is already the fallback in _find_mail_template -->
+    <record id="tda_json_web_token" model="ir.config_parameter">
+        <field name="key">tda_json_web_token</field>
+        <field name="value" ref="sale.mail_template_sale_confirmation"/>
+    </record>
+
+</odoo>

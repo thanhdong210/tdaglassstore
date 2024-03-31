@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <menuitem name="TDA Glass Store" id="menu_item_tda_glass_store" web_icon="tda_glass_merchant,static/description/tda_logo.jpg" sequence="19" action="tda_product_action">
-        <menuitem name="Products" id="menu_item_tda_product" action="tda_product_action" sequence="1"/>
-        <menuitem name="Products Category" id="menu_item_tda_product_category" action="tda_product_category_action" sequence="2"/>
-        <menuitem name="Advisory Request" id="menu_item_tda_advisory_request" action="tda_advisory_request_action" sequence="3"/>
-        <menuitem name="Company info" id="menu_item_company_info_parent" sequence="4">
+    <record id="action_custom_dashboard" model="ir.actions.client">
+        <field name="name">Custom Dashboard</field>
+        <field name="tag">custom_dashboard_tag</field>
+    </record>
+    
+    
+    <menuitem name="TDA Glass Store" id="menu_item_tda_glass_store" web_icon="tda_glass_merchant,static/description/tda_logo.jpg" sequence="19" action="action_custom_dashboard">
+        <menuitem id="menu_custom_dashboard" name="Custom Dashboard" action="action_custom_dashboard" sequence="1"/>
+        <menuitem name="Products" id="menu_item_tda_product" action="tda_product_action" sequence="2"/>
+        <menuitem name="Products Category" id="menu_item_tda_product_category" action="tda_product_category_action" sequence="3"/>
+        <menuitem name="Advisory Request" id="menu_item_tda_advisory_request" action="tda_advisory_request_action" sequence="4"/>
+        <menuitem name="Company info" id="menu_item_company_info_parent" sequence="5">
             <menuitem name="Company info" id="menu_item_company_info" action="tda_info_action" sequence="1"/>
             <menuitem name="Addresses" id="menu_item_address_info" action="tda_address_action" sequence="2"/>
 

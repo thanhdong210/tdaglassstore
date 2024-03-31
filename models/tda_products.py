@@ -9,7 +9,7 @@ class TDAProducts(models.Model):
 
     name = fields.Char(string="Name")
     category_id = fields.Many2one('tda.product.category', string="Product Category")
-    category_name = fields.Char(string="Category Name", related="category_id.name")
+    category_name = fields.Char(string="Category Name", related="category_id.name", store=True)
     category_name_url = fields.Char(string="Category Name Url", related="category_id.name_url")
     price = fields.Float(string="Price")
     discount_price = fields.Float(string="Discount price")
@@ -79,4 +79,35 @@ class TDAProducts(models.Model):
         for image in self:
             if image.image_featured_file_ids and len(image.image_featured_file_ids) > 1:
                 raise ValidationError(_("Feature image can only cantain one item!"))
+                
+    @api.model
+    def get_data(self):
+        """Returns data to the tiles of dashboard"""
+        products = self.env['tda.product.product'].search_count([])
+        categories = self.env['tda.product.category'].search_count([])
+        return {
+            'products': products,
+            'categories': categories,
+        }
+    
+    @api.model
+    def get_product_by_category(self):
+        products_group = self.read_group([], ['name', 'category_name'], 'category_id')
+
+        result = {
+            'categories_name': [],
+            'categories_count': []
+        }
+
+        for data in products_group:
+            if data["category_id"]:
+                category_name = self.env['tda.product.category'].browse(data["category_id"][0])
+                result['categories_name'].append(category_name.name)
+            else:
+                result['categories_name'].append(_("Undefined"))
+            result['categories_count'].append(data["category_id_count"])
+
+        # print("<<<<<<<<<<<<<<<<<<4", result)
+
+        return result
     

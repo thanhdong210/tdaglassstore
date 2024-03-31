@@ -23,6 +23,14 @@
     ],
     'demo': [
     ],
+    'assets': {
+        'web.assets_backend': [
+            'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js',
+            '/tda_glass_merchant/static/src/xml/custom_dashboard.xml',
+            '/tda_glass_merchant/static/src/js/custom_dashboard.js',
+            '/tda_glass_merchant/static/src/css/dashboard_css.css',
+        ],
+    },
     'installable': True,
     'application': False,
     'license': 'LGPL-3',

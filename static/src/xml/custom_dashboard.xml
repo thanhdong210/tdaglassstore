@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   
+    <t t-name="DashboardDashboard">
+        <div class="oh_dashboards">
+            <div class="container-fluid my-5 o_hr_dashboard"/>
+        </div>
+    </t>
+
+    <t t-name="MainSection">
+        <section class="dashboard_main" id="main_section">
+            <div class="row o_box tda_dashboard_panel">
+
+                <div class="col-md-6 col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="stat-widget-one tda_card tda_card_small">
+                                <div class="stat-icon dib" style="text-align: center;"><i class="fa fa-database"></i></div>
+                                <div class="stat-content dib">
+                                    <div class="stat-text">Products</div>
+                                    <div class="stat-digit"><div id="products"/></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="stat-widget-one tda_card tda_card_small">
+                                <div class="stat-icon dib"><i class="fa fa-list"/></div>
+                                <div class="stat-content dib">
+                                    <div class="stat-text">Categories</div>
+                                    <div class="stat-digit"><div id="categories"/></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </t>
+
+    <t t-name="MainSection2">
+        <div class="overflow: hidden;">
+            <div>
+                <div style="display: inline-block;">
+                    <canvas id="" height="200" width="700"></canvas>
+                </div>
+
+                <div style="margin-left: 50px;display: inline-block;">
+                    <canvas id="" height="200" width="700"></canvas>
+                </div>
+            </div>
+
+            <div style="display: inline-block;">
+                <canvas id="" height="200" width="1500"></canvas>
+            </div>
+        </div>
+    </t>
+
+</odoo>
